@@ -12,9 +12,9 @@ const App = () => {
         <div className="md:col-span-1">
           <ProfileSection />
         </div>
-        <div className="md:col-span-2 flex flex-col gap-4">
+        <div className="md:col-span-3 flex flex-col gap-4">
           <HeroSection />
-          <div className="md:col-span-3 flex flex-col gap-4">
+          <div className="flex flex-col gap-4">
             <JobListing />
           </div>
         </div>
