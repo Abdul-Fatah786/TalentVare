@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Search } from "lucide-react";
 
 export default function Header() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     return (
-        <nav className="flex items-center justify-between px-4 py-2 bg-white border-b border-gray-200 h-[70px]">
+        <nav className="flex items-center justify-between px-4 py-2 bg-white border-b border-gray-200 h-[70px] w-full z-50 relative">
+            {/* Left Side - Logo and Mobile Menu */}
             <div className="flex items-center space-x-6">
+                {/* Logo */}
                 <div className="flex items-center">
                     <div className="w-10 h-10 flex items-center justify-center">
                         <svg width="42" height="39" viewBox="0 0 42 39" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +21,19 @@ export default function Header() {
                     </div>
                 </div>
 
-                <div className="flex items-center space-x-6">
+                {/* Hamburger Menu (Mobile Only) */}
+                <button
+                    className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    aria-label="Toggle menu"
+                >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+
+                {/* Desktop Navigation Links */}
+                <div className="hidden md:flex items-center space-x-6">
                     <a href="#" className="text-[#0154AA] font-semibold text-sm">
                         Find Jobs
                     </a>
@@ -42,9 +58,9 @@ export default function Header() {
                 </div>
             </div>
 
-            {/* Middle - Search */}
-            <div className="flex-1 max-w-md mx-4">
-                <div className="relative">
+            {/* Middle - Search (Desktop) */}
+            <div className="hidden md:flex flex-1 max-w-md mx-4">
+                <div className="relative w-full">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <Search className="h-4 w-4 text-gray-400" />
                     </div>
@@ -56,15 +72,63 @@ export default function Header() {
                 </div>
             </div>
 
-            {/* Right side - Resume button and profile */}
+            {/* Right Side - Desktop Items */}
             <div className="flex items-center space-x-4">
                 <button className="bg-[#0154AA] hover:bg-[#01408A] text-white font-medium text-sm px-4 py-2 rounded-md">
                     Resume Builder
                 </button>
                 <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
-                    <img src="https://s3-alpha-sig.figma.com/img/62d2/428b/cb73207b8b2bb07f3ab9c3d4131e734f?Expires=1743379200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=hFmxAz62hGNmB8Mt0LzbZ4LB7KCzapbR3V0zQ5eHYOd0LknO2j5tq2jZrd2y2g8rDYnqfuWQaWyTY8gKGU7bx8TlgNB1oKRs8fM7QWcpePdGyvbp~MbVnKk~4iqWQRDpipJeJcR3IEvliyeBWz2trutfJR~JEdv6Cx290qVorOYvgstZZIgkXHZAsU8T~OFnLTQ4Kuf~NCX0y00g-0hUUJ4dVzU5KdYVdguihjTIvisS9clu7jjWFt~byjq92eLyFJqTOuWPRtTL2fiasz4~C4kElU5SuBc7~YHgkXCj88YTiywRgQJvGtxmX-M-naWIddNyvaEHxisB14ROH9HZIA__" alt="Profile" className="w-full h-full object-cover" />
+                    <img
+                        src="https://s3-alpha-sig.figma.com/img/62d2/428b/cb73207b8b2bb07f3ab9c3d4131e734f?Expires=1743379200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=hFmxAz62hGNmB8Mt0LzbZ4LB7KCzapbR3V0zQ5eHYOd0LknO2j5tq2jZrd2y2g8rDYnqfuWQaWyTY8gKGU7bx8TlgNB1oKRs8fM7QWcpePdGyvbp~MbVnKk~4iqWQRDpipJeJcR3IEvliyeBWz2trutfJR~JEdv6Cx290qVorOYvgstZZIgkXHZAsU8T~OFnLTQ4Kuf~NCX0y00g-0hUUJ4dVzU5KdYVdguihjTIvisS9clu7jjWFt~byjq92eLyFJqTOuWPRtTL2fiasz4~C4kElU5SuBc7~YHgkXCj88YTiywRgQJvGtxmX-M-naWIddNyvaEHxisB14ROH9HZIA__" alt="Profile" className="w-full h-full object-cover"
+                    />
                 </div>
             </div>
+
+            {/* Mobile Menu Overlay */}
+            {isMenuOpen && (
+                <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-t border-gray-200">
+                    {/* Mobile Search */}
+                    <div className="p-4">
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+                                <Search className="h-4 w-4 text-gray-400" />
+                            </div>
+                            <input
+                                type="text"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full pl-10 pr-3 py-2"
+                                placeholder="Search"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Mobile Navigation Links */}
+                    <div className="px-4 pb-4">
+                        <div className="flex flex-col space-y-2">
+                            <a href="#" className="text-[#0154AA] font-semibold text-sm py-2">
+                                Find Jobs
+                            </a>
+                            <a href="#" className="text-gray-500 font-semibold text-sm py-2">
+                                Top Companies
+                            </a>
+                            <a href="#" className="text-gray-500 font-semibold text-sm py-2">
+                                Job Tracker
+                            </a>
+                            <a href="#" className="text-gray-500 font-semibold text-sm py-2">
+                                My Calendar
+                            </a>
+                            <a href="#" className="text-gray-500 font-semibold text-sm py-2">
+                                Documents
+                            </a>
+                            <a href="#" className="text-gray-500 font-semibold text-sm py-2">
+                                Messages
+                            </a>
+                            <a href="#" className="text-gray-500 font-semibold text-sm py-2">
+                                Notifications
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            )}
         </nav>
     );
 }
